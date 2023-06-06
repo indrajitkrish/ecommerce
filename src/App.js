@@ -1,41 +1,47 @@
-import "./App.css";
-import logo from "./logo.png";
 
+
+import "./App.css";
+//import logo from "./logo.png";
+import Mockman from "mockman-js";
+import {Routes, Route, Link} from "react-router-dom";
+import { HomePage } from "./HomePage";
+import { ProductListingPage } from "./Pages/ProductListingPage";
+import { ProductDetailsPage } from "./Pages/ProductDetailsPage";
+import { CartPage } from "./Pages/CartPage";
+import {WishListPage} from "./Pages/WishListPage";
+import { LoginPage } from "./Pages/LoginPage";
+import { CheckOutPage } from "./Pages/CheckOutPage";
+import { useContext, useState } from "react";
+import { ProductContext } from "./Context/ProductProvider";
 function App() {
+  const [getSearch,setSearch] = useState("");
+  const {dispatch} = useContext(ProductContext);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} alt="mockBee logo" width="180" height="180" />
-        <h1 className="brand-title">
-          Welcome to <span>mockBee!</span>
-        </h1>
-        <p className="brand-description">
-          Get started by editing <code>src/App.js</code>
-        </p>
-        <div className="links">
-          <a
-            href="https://mockbee.netlify.app/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Explore mockBee
-          </a>
-          <a
-            href="https://mockbee.netlify.app/docs/api/introduction"
-            target="_blank"
-            rel="noreferrer"
-          >
-            API Documentation
-          </a>
-          <a
-            href="https://github.com/neogcamp/mockBee"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Contribute
-          </a>
-        </div>
-      </header>
+      <div class="nav-bar">
+            <div>
+            <Link to="/productlist" style={{textDecoration: "none"}}><span class="Main-title">MF Store</span></Link>
+            </div>
+            <div class="search-container">
+      <input type="text" onChange={(e)=>setSearch(e.target.value)} placeholder="Search.." name="search"/>
+      <Link to="/productlist"><button type="submit" onClick={()=>dispatch({type:"search", payload:getSearch})}><i class="fa fa-search"></i></button></Link>
+  </div>
+  <div class="nav-bar-right">
+    <Link to="/login"><button>Login</button></Link>
+  <Link to="/wishlist"><i class="fa fa-heart" title="heart"></i></Link>
+  <Link to="/cart"><i class="fa fa-shopping-cart" title="Cart"></i></Link>
+  </div>
+  </div>
+      <Routes>
+        <Route path="/" element={<HomePage />}></Route>
+        <Route path="/productlist" element={<ProductListingPage/>}></Route>
+        <Route path="/productlist/:productId" element={<ProductDetailsPage/>}></Route>
+        <Route path="/cart" element={<CartPage/>}></Route>
+        <Route path="/wishlist" element={<WishListPage/>}></Route>
+        <Route path="/login" element={<LoginPage/>}></Route>
+        <Route path="/mockman" element={<Mockman />}></Route>
+        <Route path="/checkout" element={<CheckOutPage />}></Route>
+      </Routes>
     </div>
   );
 }

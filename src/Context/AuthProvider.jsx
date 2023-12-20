@@ -1,4 +1,5 @@
 import { createContext, useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
@@ -6,6 +7,7 @@ export function AuthProvider({children})
 {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
+    const navigate = useNavigate();
     const [address,setAddress] = useState([
         {
         user:"Indrajit S",
@@ -63,7 +65,10 @@ else{
             const {encodedToken} = await res.json()
             console.log(encodedToken);
 if(encodedToken!=="")
+{
 setIsLoggedIn(true);
+navigate("/productlist")
+}
 
 localStorage.setItem("encodedToken",encodedToken)
 

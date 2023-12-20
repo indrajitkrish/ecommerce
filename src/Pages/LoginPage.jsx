@@ -44,13 +44,13 @@ const [confirmPass,setConfirmPass] = useState("");
             <button onClick={()=>handleLogin(false)}>Sign Up</button>
         </div>
         {showLogin ? 
-        <div>
+        <div className="login-form">
             <label>Email<input type="email" placeholder="Enter Email" value={myEmail} onChange={(e) => setEmail(e.target.value)}/></label>
             <br/>
-            <label>Password</label>
+            <label>Password
            <div class="INPpassword"> <input type={myPassword.showPassword ? "text" : "password"} placeholder="Enter password" value={myPassword.password} onChange={(e) => setPassword({...myPassword,password: e.target.value})}
             /><i onClick={()=>setPassword({...myPassword,showPassword:!myPassword.showPassword})} class={myPassword.showPassword ? "fa-eye-slash" :"far fa-eye"} id="togglePassword"></i></div>
-            <br />
+            <br /></label>
             <button onClick={()=>Submit()}>Login</button>
         </div> :
         <div>
